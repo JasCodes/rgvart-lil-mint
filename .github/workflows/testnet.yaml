@@ -11,6 +11,8 @@ jobs:
       AWS_DEFAULT_REGION: ap-south-1
     steps:
       - uses: actions/checkout@v1
+      - name: Clear package-lock.json
+        run: rm -rf package-lock.json
       - name: Install dependencies
         run: npm i --force
       - name: Build
