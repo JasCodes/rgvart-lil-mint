@@ -2,8 +2,72 @@ html,
 body {
   padding: 0;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  /* background-color: #B71F71; */
+  font-family: "Billiers", "Georgia",sans-serif;
+  background-image: url(https://rgvart.io/images/welcome-bg.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: 62%,50%;
+  height: 100vh;
+}
+
+
+header{
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  padding: 25px;
+}
+
+
+.logo{
+  width: 120px;
+}
+
+
+button{
+  font-family: "Billiers", "Georgia",sans-serif;
+  background-color: #fff;
+  color: #FF80AB;
+  border: none;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  cursor: pointer;
+  border-radius: 50px;
+}
+
+.connect{
+  padding: 0px 40px;
+  font-size: 25px;
+  line-height: 40px;
+}
+
+@media (min-width: 768px) {
+  header{
+    align-items: flex-start !important;
+    padding: 50px !important;
+  }
+  .logo{
+    width: 156px !important;
+  }
+  .connect{
+    padding: 0px 47px !important;
+    font-size: 30px !important;
+    line-height: 50px !important;
+  }
+}
+
+
+
+
+@font-face {
+  font-family: "Billiers";
+  src: url("/fonts/billiers_regular-webfont.woff2") format("woff2"), url("/fonts/billiers_regular-webfont.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
 }
 
 a {
