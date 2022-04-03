@@ -18,7 +18,7 @@ jobs:
       - name: Build
         run: npm run build
         env:
-          DEPLOY_URL: rgv.surge.sh
+          DEPLOY_URL: testnetmint.rgvart.io
       - name: Deploy
         uses: lbertenasco/s3-deploy@v1
         with:
