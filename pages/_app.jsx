@@ -34,8 +34,6 @@ function MyApp({ Component, pageProps }) {
         <link rel="icon" type="image/png" href="favicon.png" />
 
         <title>RGVart - Mint Love is Love</title>
-        <link rel="stylesheet" href="styles/default.css" />
-        <link rel="stylesheet" href="styles/welcome-page.css" />
       </Head>
       <Web3ReactProvider getLibrary={getLibrary}>
         <Component {...pageProps} />

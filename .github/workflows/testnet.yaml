@@ -17,6 +17,8 @@ jobs:
         run: npm i
       - name: Build
         run: npm run build
+        env:
+          DEPLOY_URL: rgv.surge.sh
       - name: Deploy
         uses: lbertenasco/s3-deploy@v1
         with:
