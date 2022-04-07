@@ -12,7 +12,7 @@ jobs:
       DEPLOY_URL: testnetmint.rgvart.io
       ETH_RPC: https://eth-rinkeby.alchemyapi.io/v2/B_ilsx963nzG2t9MWmOBGqsM4hYikzfJ
       CHAIN_ID: 4
-      CONTRACT_ADDRESS: 0x836B3D63b3592FEaf503d707F3d55774228C4e5f
+      CONTRACT_ADDRESS: '0x836B3D63b3592FEaf503d707F3d55774228C4e5f'
     steps:
       - uses: actions/checkout@v1
       - name: Clear package-lock.json
