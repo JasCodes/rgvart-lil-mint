@@ -68,7 +68,7 @@ button{
   line-height: 0px;
 }
 .connect-condensed{
-  padding: 15px 15px;
+  padding: 10px 20px;
   font-size: 20px;
   line-height: 25px;
   /* line-height: 40px; */
@@ -87,10 +87,28 @@ button{
     font-size: 30px !important;
     line-height: 50px !important;
   }
+  .connect-condensed{
+    padding: 10px 30px;
+    font-size: 25px;
+    line-height: 30px;
+    /* line-height: 40px; */
+  }
 }
 
 .bodyHeader{
   text-align: center;
+}
+
+.mintSection{
+  display: flex;
+  justify-content: center;
+}
+
+.countButton{
+  padding: 0px 40px;
+}
+.mintButton{
+  padding: 0px 40px;
 }
 
 h1{

@@ -1,9 +1,15 @@
 import { ethers } from 'ethers';
 import Contract from '../RGVERC721.json';
 
+async function sleep(milliseconds) {
+  return new Promise((resolve) => {
+    setTimeout(resolve, milliseconds);
+  });
+}
 export class RGV {
   constructor(address) {
     this.refreshing = true;
+    this.mintStatus = 'mint';
     if (typeof window !== 'undefined') {
       // this.provider = new ethers.providers.Web3Provider(window.ethereum);
       this.provider = new ethers.providers.JsonRpcProvider(process.env.ETH_RPC);
@@ -12,6 +18,21 @@ export class RGV {
       this.contract = new ethers.Contract(address, Contract.abi, this.provider);
     }
     // this.balance = 0;
+  }
+
+  async mint(to, amount) {
+    this.mintStatus = 'minting';
+    this.reset();
+    await sleep(3000);
+    this.mintStatus = 'mint';
+    this.reset();
+    // const tx = await this.contract.mint(to, amount);
+    // return tx;
+  }
+
+  async balanceOf(address) {
+    const balance = await this.contract.balanceOf(address);
+    return balance.toString();
   }
 
   async update(callback) {
@@ -23,7 +44,7 @@ export class RGV {
     }
     if (this.rgvSetState) {
       this.refreshing = true;
-      this.rgvSetState({ rgv: this });
+      this.reset();
       await Promise.all([
         // this.contract.baseExtension().then((x) => { this.baseExtension = x; }),
         this.contract.cost().then((x) => {
@@ -37,7 +58,11 @@ export class RGV {
         console.log(e);
       });
       this.refreshing = false;
-      this.rgvSetState({ rgv: this });
+      this.reset();
     }
+  }
+
+  reset() {
+    this.rgvSetState({ rgv: this });
   }
 }

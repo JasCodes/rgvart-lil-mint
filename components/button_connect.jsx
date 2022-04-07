@@ -24,8 +24,8 @@ export function ButtonConnect() {
   }
   if (chainId && chainId.toString() !== process.env.CHAIN_ID) {
     let message;
-    if (process.env.CHAIN_ID === 1) {
-      message = 'Mainnet';
+    if (process.env.CHAIN_ID === '1') {
+      message = 'Ethereum Mainnet';
     } else {
       message = 'Rinkeby Testnet';
     }
