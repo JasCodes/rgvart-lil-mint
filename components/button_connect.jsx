@@ -22,7 +22,9 @@ export function ButtonConnect() {
       console.log(ex);
     }
   }
-
+  // if (chainId !== process.env.CHAIN_ID) {
+  //   <button type="button" className="connect-condensed" onClick={connect}>{ `wrong${chainId} ` }</button>;
+  // }
   if (typeof window !== 'undefined') {
     if (typeof window.ethereum === 'undefined') {
       // const dappUrl = 'rgv.surge.sh';
@@ -34,7 +36,7 @@ export function ButtonConnect() {
             type="button"
             className="connect"
           >
-            Connectx
+            Connect with MetaMask
           </button>
         </a>
       );
@@ -42,19 +44,8 @@ export function ButtonConnect() {
   }
 
   if (account) {
-    return (
-      <>
-        <p>
-          $
-          {account}
-        </p>
-        <p>-</p>
-        <p>
-          $
-          {chainId}
-        </p>
-      </>
-    );
+    const message = `${account.substring(0, 8)} ... ${account.substring(account.length - 8)}`;
+    return <button type="button" className="connect-condensed" onClick={connect}>{ message }</button>;
   }
 
   return (

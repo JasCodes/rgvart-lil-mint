@@ -9,6 +9,22 @@ body {
   background-repeat: no-repeat;
   background-position: 62%,50%;
   height: 100vh;
+  color: white;
+  /* letter-spacing: 2px; */
+}
+
+.bg{
+  height: 100vh;
+  backdrop-filter: brightness(0.5);
+  display: flex;
+  flex-flow: column;
+}
+
+.center{
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 
@@ -18,15 +34,16 @@ header{
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  padding: 25px;
+  padding: 25px 25px 0px 25px !important
+
 }
 
-p{
+/* p{
   font-size: 1.5rem;
   font-weight: bold;
   color: #fff;
   text-align: center;
-}
+} */
 
 .logo{
   width: 120px;
@@ -50,11 +67,16 @@ button{
   font-size: 25px;
   line-height: 40px;
 }
+.connect-condensed{
+  padding: 0px 15px;
+  font-size: 20px;
+  line-height: 40px;
+}
 
 @media (min-width: 768px) {
   header{
     align-items: flex-start !important;
-    padding: 50px !important;
+    padding: 50px 50px 0px 50px !important
   }
   .logo{
     width: 156px !important;
@@ -66,9 +88,42 @@ button{
   }
 }
 
+.bodyHeader{
+  text-align: center;
+}
 
+h1{
+  font-size: 70px;
+  margin: 0px;
+}
+h2{
+  font-size: 50px;
+  margin: 0px;
+}
+h3{
+  font-size: 40px;
+  margin: 0px;
+}
+h4{
+  font-size: 30px;
+  margin: 0px;
+}
+h6{
+  font-size: 17px;
+  margin: 0px;
+  color: #FF80AB;
 
-
+}
+span{
+  font-size: 35px;
+  color: #c2b3b6;
+}
+/* @font-face {
+  font-family: "Billiers";
+  src: url("/fonts/billiers_regular.ttf");
+  font-weight: normal;
+  font-style: normal;
+} */
 @font-face {
   font-family: "Billiers";
   src: url("/fonts/billiers_regular-webfont.woff2") format("woff2"), url("/fonts/billiers_regular-webfont.woff") format("woff");

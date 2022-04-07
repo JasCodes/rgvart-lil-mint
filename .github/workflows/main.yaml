@@ -1,7 +1,7 @@
-name: Deploy Love is Love TestNet Mint Dapp
+name: Deploy Love is Love Mainnet Mint Dapp
 on:
   push:
-    branches: [testnet]
+    branches: [deploy_later]
 jobs:
   cloudfront-deployment:
     runs-on: ubuntu-latest
@@ -9,10 +9,10 @@ jobs:
       AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
       AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
       AWS_DEFAULT_REGION: ap-south-1
-      DEPLOY_URL: testnetmint.rgvart.io
-      ETH_RPC: https://eth-rinkeby.alchemyapi.io/v2/B_ilsx963nzG2t9MWmOBGqsM4hYikzfJ
-      CHAIN_ID: 4
-      CONTRACT_ADDRESS: 0x836B3D63b3592FEaf503d707F3d55774228C4e5f
+      # DEPLOY_URL: rgvart.io
+      ETH_RPC: https://eth-mainnet.alchemyapi.io/v2/IENVSTv00T3V-MbsrLxDHoBiM9gTLyTT
+      CHAIN_ID: 1
+      # CONTRACT_ADDRESS: 0x836B3D63b3592FEaf503d707F3d55774228C4e5f
     steps:
       - uses: actions/checkout@v1
       - name: Clear package-lock.json
