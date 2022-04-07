@@ -6,7 +6,7 @@ export class RGV {
     this.refreshing = true;
     if (typeof window !== 'undefined') {
       // this.provider = new ethers.providers.Web3Provider(window.ethereum);
-      this.provider = new ethers.providers.JsonRpcProvider('https://eth-rinkeby.alchemyapi.io/v2/7RLgccMpIwnw9TQU83cEoPoEO1HW_Li9');
+      this.provider = new ethers.providers.JsonRpcProvider(process.env.ETH_RPC);
 
       window.provider = this.provider;
       this.contract = new ethers.Contract(address, Contract.abi, this.provider);

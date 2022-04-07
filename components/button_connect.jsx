@@ -22,9 +22,21 @@ export function ButtonConnect() {
       console.log(ex);
     }
   }
-  // if (chainId !== process.env.CHAIN_ID) {
-  //   <button type="button" className="connect-condensed" onClick={connect}>{ `wrong${chainId} ` }</button>;
-  // }
+  if (chainId && chainId.toString() !== process.env.CHAIN_ID) {
+    let message;
+    if (process.env.CHAIN_ID === 1) {
+      message = 'Mainnet';
+    } else {
+      message = 'Rinkeby Testnet';
+    }
+    return (
+      <button type="button" className="connect-condensed">
+        Please connect to
+        <br />
+        { message }
+      </button>
+    );
+  }
   if (typeof window !== 'undefined') {
     if (typeof window.ethereum === 'undefined') {
       // const dappUrl = 'rgv.surge.sh';
@@ -45,7 +57,7 @@ export function ButtonConnect() {
 
   if (account) {
     const message = `${account.substring(0, 8)} ... ${account.substring(account.length - 8)}`;
-    return <button type="button" className="connect-condensed" onClick={connect}>{ message }</button>;
+    return <button type="button" className="connect-condensed">{ message }</button>;
   }
 
   return (

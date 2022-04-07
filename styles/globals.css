@@ -63,14 +63,15 @@ button{
 }
 
 .connect{
-  padding: 0px 40px;
+  padding: 20px 40px;
   font-size: 25px;
-  line-height: 40px;
+  line-height: 0px;
 }
 .connect-condensed{
-  padding: 0px 15px;
+  padding: 15px 15px;
   font-size: 20px;
-  line-height: 40px;
+  line-height: 25px;
+  /* line-height: 40px; */
 }
 
 @media (min-width: 768px) {
