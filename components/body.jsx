@@ -1,20 +1,21 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useRGV } from '../hooks/useRGV';
 
-export function BodyHeader() {
+export function Body() {
   const { rgv } = useRGV();
 
   if (rgv.refreshing) {
     return (
-      <div className="center">
-        <h1>REFRESHING ...</h1>
+      <div className="center refresh">
+        REFRESHING ...
       </div>
     );
   }
+  // <h3>Love is Love - NFT Collection</h3>
   return (
-    <div className="bodyHeader">
+    <div className="body">
 
-      <h3>Love is Love - NFT Collection</h3>
+      <h3>{rgv.name}</h3>
       <h2 style={{ lineHeight: '38px' }}>
         { rgv.totalSupply}
         {' '}

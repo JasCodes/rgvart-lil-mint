@@ -29,6 +29,10 @@ header {
   padding: 15px 15px 0px 15px;
 }
 
+.refresh{
+  font-size: 35px;
+}
+
 .logo {
   width: 100px;
 }
@@ -46,7 +50,7 @@ header {
   /* line-height: 40px; */
 }
 
-.bodyHeader {
+.body {
   text-align: center;
   padding-bottom: 30px;
 }
@@ -55,17 +59,18 @@ header {
   display: flex;
   justify-content: center;
   align-items: center;
-  padding-bottom: 10px;
+  padding-bottom: 15px;
   padding-top: 10px;
 }
 
 .countButton {
-  padding: 0px 20px;
-  line-height: 50px;
+  padding: 0px 21px;
+  line-height: 55px;
   font-size: 30px; 
 }
 
 .mintButton {
+  font-size: 30px;
   padding: 0px 40px;
 }
 
@@ -76,4 +81,23 @@ span {
 
 .spacer {
   height: 5px;
+}
+
+.spacerMed {
+  height: 10px;
+}
+
+.spacerBig {
+  height: 15px;
+}
+
+.opensea{
+  color: #FFAECA;
+  font-size: 20px;
+  width: 90%;
+  margin: auto;
+}
+
+.congrats{
+  font-size: 40px;
 }

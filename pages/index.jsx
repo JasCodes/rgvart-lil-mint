@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { BodyHeader } from '../components/body_header';
+import { Body } from '../components/body';
 import { BodySwitcher } from '../components/body_switcher';
 import { Header } from '../components/header';
 import { RGVProvider } from '../hooks/useRGV';
@@ -11,9 +11,7 @@ export default function Home() {
   const [rgv, setrgv] = useState({ rgv: new RGV(process.env.CONTRACT_ADDRESS) });
 
   useEffect(() => {
-    // setTimeout(() => {
     rgv.rgv.update(setrgv);
-    // }, 2000);
   }, []);
 
   return (
@@ -21,7 +19,7 @@ export default function Home() {
       <div className="bg">
         <Header />
         <div style={{ flex: 100 }} />
-        <BodyHeader />
+        <Body />
         <BodySwitcher />
         <div style={{ flex: 400 }} />
       </div>

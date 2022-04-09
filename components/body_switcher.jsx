@@ -10,30 +10,59 @@ export function BodySwitcher() {
     if (chainId?.toString() === process.env.CHAIN_ID) validWallet = true;
   }
 
+  if (rgv.refreshing) {
+    return <div />;
+  }
+
+  if (rgv.isFinished) {
+    return (
+      <div className="body congrats">
+        Miniting Finished!
+      </div>
+    );
+  }
+
   if (rgv.refreshing || !validWallet) {
     return <div />;
   }
 
   if (rgv.mintStatus === 'minting') {
     return (
-      <h3>Please wait... Miniting in Progress</h3>
+      <>
+        <div style={{ flex: 100 }} />
+        <div className="body">
+          <h3>Please wait... Miniting in Progress</h3>
+        </div>
+      </>
     );
   }
-  if (rgv.mintStatus === 'error') {
+  if (rgv.mintStatus === 'mintError') {
+    const message = rgv.fundsError ? 'Insufficient Funds!' : 'Something went wrong';
     return (
-      <h3>Something went wrong. Please refresh.</h3>
+      <div className="body" style={{ color: '#FF80AB' }}>
+        <h3>{message}</h3>
+        <h3>Please refresh the page</h3>
+        <div className="spacerBig" />
+        <button
+          type="button"
+          className="mintButton"
+          onClick={() => {
+            window.location.reload();
+          }}
+        >
+          Retry
+        </button>
+      </div>
     );
   }
   if (rgv.mintStatus === 'mintSuccess') {
-    return (
-      <h3>Success</h3>
-    );
+    return <MintMore rgv={rgv} />;
   }
 
   return (
-    <div className="bodyHeader">
+    <div className="body">
       <NFTCount account={account} />
-      <MintSection />
+      <MintSection rgv={rgv} />
     </div>
   );
 }
@@ -67,11 +96,9 @@ function NFTCount({ account }) {
 
 function MintSection() {
   const { rgv } = useRGV();
-  const { connector } = useWeb3React();
   const [count, setCount] = useState(1);
   return (
     <div>
-
       <div className="mintSection">
         <button
           type="button"
@@ -100,7 +127,39 @@ function MintSection() {
           <div>+</div>
         </button>
       </div>
-      <button type="button" className="mintButton" onClick={() => { rgv.mint(1); }}><h3>Mint Now</h3></button>
+      <button type="button" className="mintButton" onClick={() => { rgv.mint(count); }}>Mint Now</button>
+    </div>
+  );
+}
+
+function MintMore({ rgv }) {
+  let link = 'https://testnets.opensea.io';
+  if (process.env.CHAIN_ID !== '1') {
+    link = 'https://opensea.io';
+  }
+  return (
+    <div className="body">
+      <div className="congrats">
+        Congratulations!
+      </div>
+      <div className="spacerMed" />
+      <button
+        type="button"
+        className="mintButton"
+        onClick={() => {
+          rgv.resetMint();
+        }}
+      >
+        Mint More
+      </button>
+      <div className="spacerBig" />
+      <div className="opensea">
+        <a href={link} target="_blank" rel="noreferrer">
+          View minted images once revealed on OpenSea
+          {' '}
+          <span>&#10230;</span>
+        </a>
+      </div>
     </div>
   );
 }

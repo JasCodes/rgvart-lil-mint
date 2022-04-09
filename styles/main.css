@@ -21,6 +21,9 @@
   span{
     font-size: 35px !important;
   }
+  .refresh{
+    font-size: 70px !important;
+  }
   .logo {
     width: 130px !important;
   }
@@ -30,13 +33,48 @@
     line-height: 50px !important;
   }
   .connect-condensed {
-    padding: 10px 30px;
-    font-size: 25px;
-    line-height: 30px;
+    padding: 10px 30px !important;
+    font-size: 25px !important;
+    line-height: 30px !important;
     /* line-height: 40px; */
+  }
+
+  .mintSection{
+    padding-bottom: 20px !important;
+  }
+
+  .countButton {
+    padding: 0px 25px !important;
+    line-height: 65px !important;
+    font-size: 50px !important;
+  }
+  
+  .mintButton {
+    font-size: 38px !important;
+    padding: 0px 45px !important;
   }
 
 .spacer {
   height: 10px !important;
+}
+.spacerMed {
+  height: 20px !important;
+}
+.spacer {
+  height: 10px !important;
+}
+.spacerBig {
+  height: 40px !important;
+}
+
+.opensea{
+  font-size: 27px !important;
+}
+
+.opensea > span{
+  font-size: 50px !important;
+}
+.congrats{
+  font-size: 70px !important;
 }
 }

@@ -9,34 +9,42 @@ async function sleep(milliseconds) {
 export class RGV {
   constructor(address) {
     this.refreshing = true;
-    this.mintStatus = 'mint';
+    this.mintStatus = 'mintStart';
+    this.isFinished = false;
     if (typeof window !== 'undefined') {
-      this.providerEth = new ethers.providers.Web3Provider(window.ethereum);
       this.provider = new ethers.providers.JsonRpcProvider(process.env.ETH_RPC);
 
       this.contract = new ethers.Contract(address, Contract.abi, this.provider);
-      this.signer = this.contract.connect(this.providerEth.getSigner());
+      // window.ii = this.isFinished;
     }
     // this.balance = 0;
   }
 
-  async mint(mintAmount) {
-    this.mintStatus = 'minting';
+  resetMint() {
+    this.mintStatus = 'mintStart';
     this.updateState();
-    // await sleep(3000);
-    // this.signer.signTransaction();
-    return this.signer.mint(mintAmount, { value: this.costBig })
-      .then((x) => {
-        console.log(x);
-        this.mintStatus = 'mintSuccess';
-        this.updateState();
-      })
-      .catch((e) => {
-        console.log(e);
-        this.mintStatus = 'mintError';
-        this.updateState();
-      });
+  }
 
+  async mint(mintAmount) {
+    try {
+      const signer = this.contract.connect(
+        (new ethers.providers.Web3Provider(window.ethereum)).getSigner(),
+      );
+      this.mintStatus = 'minting';
+
+      this.updateState();
+      const tx = await signer.mint(mintAmount, { value: this.costBig.mul(mintAmount) });
+      const r = await tx.wait();
+      this.mintStatus = 'mintSuccess';
+      this.updateState();
+      return r;
+    } catch (e) {
+      console.log(e);
+      this.fundsError = e.message.includes('insufficient funds');
+      this.mintStatus = 'mintError';
+      this.updateState();
+    }
+    return null;
     // return tx;
   }
 
@@ -51,8 +59,15 @@ export class RGV {
       this.costBig = x;
       this.cost = ethers.utils.formatEther(x);
     }),
-    this.contract.maxSupply().then((x) => { this.maxSupply = x.toString(); }),
-    this.contract.totalSupply().then((x) => { this.totalSupply = x.toString(); }),
+    this.contract.name().then((x) => { this.name = x.toString(); }),
+    this.contract.maxSupply().then((x) => {
+      this.maxSupplyBig = x;
+      this.maxSupply = x.toString();
+    }),
+    this.contract.totalSupply().then((x) => {
+      this.totalSupplyBig = x;
+      this.totalSupply = x.toString();
+    }),
     this.contract.balanceOf(this.contract.address)
       .then((x) => { this.balance = x.toString(); }),
   ];
@@ -71,18 +86,20 @@ export class RGV {
       // window.a = this;
     }
     if (this.rgvSetState) {
-      this.refreshing = true;
-      this.updateState();
-      await Promise.all(this.updatePromises()).then(() => {
+      try {
+        this.refreshing = true;
+        this.updateState();
+        await Promise.all(this.updatePromises());
         this.refreshing = false;
         this.updateState();
-      }).catch((e) => {
+      } catch (e) {
         console.log(e);
-      });
+      }
     }
   }
 
   updateState() {
+    this.isFinished = this.maxSupplyBig?.eq(this.totalSupply);
     this.rgvSetState({ rgv: this });
   }
 }
