@@ -11,15 +11,11 @@ export class RGV {
     this.refreshing = true;
     this.mintStatus = 'mint';
     if (typeof window !== 'undefined') {
-      if (window.ethereum) {
-        this.provider = new ethers.providers.Web3Provider(window.ethereum);
-      } else {
-        this.provider = new ethers.providers.JsonRpcProvider(process.env.ETH_RPC);
-      }
-      // this.signer = this.provider.getSigner();
-      // window.provider = this.provider;
+      this.providerEth = new ethers.providers.Web3Provider(window.ethereum);
+      this.provider = new ethers.providers.JsonRpcProvider(process.env.ETH_RPC);
+
       this.contract = new ethers.Contract(address, Contract.abi, this.provider);
-      this.signer = this.contract.connect(this.provider.getSigner());
+      this.signer = this.contract.connect(this.providerEth.getSigner());
     }
     // this.balance = 0;
   }
