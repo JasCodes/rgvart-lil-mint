@@ -48,7 +48,7 @@ export function ButtonConnect() {
             type="button"
             className="connect"
           >
-            Connect with MetaMask
+            Connect
           </button>
         </a>
       );
