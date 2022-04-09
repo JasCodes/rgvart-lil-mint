@@ -7,7 +7,7 @@ import { RGV } from '../object/RGV';
 // eslint-disable-next-line import/no-unresolved
 
 export default function Home() {
-  console.log('contract address', process.env.CONTRACT_ADDRESS, process.env.CHAIN_ID);
+  // console.log('contract address', process.env.CONTRACT_ADDRESS, process.env.CHAIN_ID);
   const [rgv, setrgv] = useState({ rgv: new RGV(process.env.CONTRACT_ADDRESS) });
 
   useEffect(() => {
@@ -20,8 +20,10 @@ export default function Home() {
     <RGVProvider value={rgv}>
       <div className="bg">
         <Header />
+        <div style={{ flex: 100 }} />
         <BodyHeader />
         <BodySwitcher />
+        <div style={{ flex: 400 }} />
       </div>
     </RGVProvider>
   );

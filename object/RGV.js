@@ -11,22 +11,33 @@ export class RGV {
     this.refreshing = true;
     this.mintStatus = 'mint';
     if (typeof window !== 'undefined') {
-      // this.provider = new ethers.providers.Web3Provider(window.ethereum);
-      this.provider = new ethers.providers.JsonRpcProvider(process.env.ETH_RPC);
-
-      window.provider = this.provider;
+      this.provider = new ethers.providers.Web3Provider(window.ethereum);
+      // this.provider = new ethers.providers.JsonRpcProvider(process.env.ETH_RPC);
+      // this.signer = this.provider.getSigner();
+      // window.provider = this.provider;
       this.contract = new ethers.Contract(address, Contract.abi, this.provider);
+      this.signer = this.contract.connect(this.provider.getSigner());
     }
     // this.balance = 0;
   }
 
-  async mint(to, amount) {
+  async mint(mintAmount) {
     this.mintStatus = 'minting';
-    this.reset();
-    await sleep(3000);
-    this.mintStatus = 'mint';
-    this.reset();
-    // const tx = await this.contract.mint(to, amount);
+    this.updateState();
+    // await sleep(3000);
+    // this.signer.signTransaction();
+    return this.signer.mint(mintAmount, { value: this.costBig })
+      .then((x) => {
+        console.log(x);
+        this.mintStatus = 'mintSuccess';
+        this.updateState();
+      })
+      .catch((e) => {
+        console.log(e);
+        this.mintStatus = 'mintError';
+        this.updateState();
+      });
+
     // return tx;
   }
 
@@ -35,34 +46,44 @@ export class RGV {
     return balance.toString();
   }
 
+  updatePromises = () => [
+    // this.contract.baseExtension().then((x) => { this.baseExtension = x; }),
+    this.contract.cost().then((x) => {
+      this.costBig = x;
+      this.cost = ethers.utils.formatEther(x);
+    }),
+    this.contract.maxSupply().then((x) => { this.maxSupply = x.toString(); }),
+    this.contract.totalSupply().then((x) => { this.totalSupply = x.toString(); }),
+    this.contract.balanceOf(this.contract.address)
+      .then((x) => { this.balance = x.toString(); }),
+  ];
+
   async update(callback) {
     if (callback) {
       this.rgvSetState = callback;
-
-      window.c = callback;
-      window.a = this;
+      if (!this.poll) {
+        this.poll = setInterval(async () => {
+          await Promise.all(this.updatePromises());
+          this.updateState();
+          console.log('update');
+        }, 3000);
+      }
+      // window.c = callback;
+      // window.a = this;
     }
     if (this.rgvSetState) {
       this.refreshing = true;
-      this.reset();
-      await Promise.all([
-        // this.contract.baseExtension().then((x) => { this.baseExtension = x; }),
-        this.contract.cost().then((x) => {
-          this.cost = ethers.utils.formatEther(x);
-        }),
-        this.contract.maxSupply().then((x) => { this.maxSupply = x.toString(); }),
-        this.contract.totalSupply().then((x) => { this.totalSupply = x.toString(); }),
-        this.contract.balanceOf(this.contract.address)
-          .then((x) => { this.balance = x.toString(); }),
-      ]).catch((e) => {
+      this.updateState();
+      await Promise.all(this.updatePromises()).then(() => {
+        this.refreshing = false;
+        this.updateState();
+      }).catch((e) => {
         console.log(e);
       });
-      this.refreshing = false;
-      this.reset();
     }
   }
 
-  reset() {
+  updateState() {
     this.rgvSetState({ rgv: this });
   }
 }

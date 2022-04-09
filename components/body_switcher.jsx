@@ -53,13 +53,13 @@ function NFTCount({ account }) {
   }
   return (
     <>
-      <h3>
+      <h4>
         You already own
         {' '}
-        { balance}
+        <span>{ balance}</span>
         {' '}
         NFTs
-      </h3>
+      </h4>
       <h3>How many more NFTs you like to mint?</h3>
     </>
   );
@@ -67,6 +67,7 @@ function NFTCount({ account }) {
 
 function MintSection() {
   const { rgv } = useRGV();
+  const { connector } = useWeb3React();
   const [count, setCount] = useState(1);
   return (
     <div>
@@ -81,7 +82,7 @@ function MintSection() {
             });
           }}
         >
-          <h2>-</h2>
+          <div>-</div>
         </button>
         <h2 style={{ width: 100 }}>
           {count }
@@ -96,10 +97,10 @@ function MintSection() {
           }}
         >
           {' '}
-          <h2>+</h2>
+          <div>+</div>
         </button>
       </div>
-      <button type="button" className="mintButton" onClick={() => { rgv.mint(null, null); }}><h3>Mint Now</h3></button>
+      <button type="button" className="mintButton" onClick={() => { rgv.mint(1); }}><h3>Mint Now</h3></button>
     </div>
   );
 }

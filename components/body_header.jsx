@@ -7,7 +7,7 @@ export function BodyHeader() {
   if (rgv.refreshing) {
     return (
       <div className="center">
-        <h1>REFRESHING...</h1>
+        <h1>REFRESHING ...</h1>
       </div>
     );
   }
@@ -23,7 +23,7 @@ export function BodyHeader() {
         { rgv.maxSupply}
 
       </h2>
-      <br />
+      <div className="spacer" />
       <h4>
         1 NFT costs
         {' '}

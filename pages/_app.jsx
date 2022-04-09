@@ -1,5 +1,8 @@
 import React from 'react';
-import '../styles/globals.css';
+import '../styles/global.css';
+import '../styles/main.css';
+import '../styles/main_mobile.css';
+
 import { Web3ReactProvider } from '@web3-react/core';
 import Web3 from 'web3';
 import Head from 'next/head';
