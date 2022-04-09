@@ -75,7 +75,7 @@ function NFTCount({ account }) {
     rgv.balanceOf(account).then(setBalance);
   }, [account]);
   // rgv.balanceOf(rgv.account);
-  if (balance === 0) {
+  if (balance === '0') {
     return (
       <h3>How many NFTs you like to mint?</h3>
     );
