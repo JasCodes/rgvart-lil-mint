@@ -133,9 +133,9 @@ function MintSection() {
 }
 
 function MintMore({ rgv }) {
-  let link = 'https://testnets.opensea.io';
+  let link = 'https://opensea.io';
   if (process.env.CHAIN_ID !== '1') {
-    link = 'https://opensea.io';
+    link = 'https://testnets.opensea.io';
   }
   return (
     <div className="body">
